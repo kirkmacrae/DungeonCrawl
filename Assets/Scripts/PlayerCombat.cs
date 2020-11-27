@@ -4,28 +4,9 @@ using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
 {
-    public int maxHealth = 5;
-    public int currentHealth;
-
-    public HealthBar healthBar;
-
-    public float attackRange = 0.5f;
-
-    public LayerMask enemyLayers;
-    public Transform attackPoint;
-
     public Animator animator;
     public float attackRate = 2f;
     float nextAttackTime = 0f;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);        
-    }
-
 
     private void Update()
     {
@@ -39,35 +20,20 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
-
-    // Update is called once per frame
-    void TakeDamage(int damage)
-    {
-        currentHealth -= damage;
-        healthBar.SetHealth(currentHealth);
-    }
-
     void Attack()
     {
         animator.SetTrigger("MeleeAttack");
-        
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
-
-        foreach(Collider2D enemy in hitEnemies)
-        {
-            print("enemy");
-            enemy.GetComponent<Enemy>().TakeDamage();
-        }
-       
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (attackPoint == null)
-            return;
-
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Melee Attack"))
+        {
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            {
+                print("enemy hit");
+                collision.GetComponent<Enemy>().TakeDamage();
+            }
+        }
     }
-
-
 }

@@ -6,8 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
-    public Animator animator;
-    public SpriteRenderer spriteRenderer;
+    public Animator animator;    
 
     public Animator weaponAnimator;
 
@@ -31,7 +30,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
-        spriteRenderer.sortingOrder = (int)(100f - ((transform.position.y)* 10f));
+        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);      
     }
 }
