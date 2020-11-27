@@ -4,62 +4,34 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] float speed = 1f;
+    public float moveSpeed = 5f;
+    public Rigidbody2D rb;
+    public Animator animator;
+    public SpriteRenderer spriteRenderer;
 
-    private Vector2 direction;
-    private Animator animator;
+    public Animator weaponAnimator;
 
-    private void Start()
-    {
-        animator = GetComponent<Animator>();
-    }
+    Vector2 movement;
 
     private void Update()
-    {
-        TakeInput();
-        Move();
+    {        
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+        if (movement != Vector2.zero) //keep previous movement direction if idle
+        {
+            animator.SetFloat("Horizontal", movement.x);
+            animator.SetFloat("Vertical", movement.y);
+
+            weaponAnimator.SetFloat("Horizontal", movement.x);
+            weaponAnimator.SetFloat("Vertical", movement.y);
+        }
+        animator.SetFloat("Speed", movement.sqrMagnitude);
+        
     }
 
-    private void TakeInput()
+    private void FixedUpdate()
     {
-        direction = Vector2.zero;
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            direction += Vector2.up;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            direction += Vector2.left;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            direction += Vector2.down;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            direction += Vector2.right;
-        }
+        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        spriteRenderer.sortingOrder = (int)(100f - ((transform.position.y)* 10f));
     }
-
-    private void Move()
-    {
-        transform.Translate(direction * speed * Time.deltaTime);
-
-        if (direction.x != 0 || direction.y != 0)
-        {
-            SetAnimatorMovement(direction);
-        }
-        else
-        {
-            animator.SetLayerWeight(1, 0);
-        }
-    }
-    private void SetAnimatorMovement(Vector2 direction)
-    {
-        animator.SetLayerWeight(1, 1);
-        animator.SetFloat("xDirection", direction.x);
-        animator.SetFloat("yDirection", direction.y);
-    }
-
 }
