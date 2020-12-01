@@ -23,13 +23,19 @@ public class PlayerHealth : MonoBehaviour
 
     public void HealPlayer(int healAmount)
     {
-        currentHealth += healAmount;
-        healthBar.SetHealth(currentHealth);
+        if (currentHealth + healAmount > maxHealth)
+        {
+            healthBar.SetHealth(maxHealth);
+        }
+        else
+        {
+            currentHealth += healAmount;
+            healthBar.SetHealth(currentHealth);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
-    {
-        print("player collision");
+    {        
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             print("player hit");

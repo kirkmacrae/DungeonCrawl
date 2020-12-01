@@ -30,8 +30,7 @@ public class PlayerCombat : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Melee Attack"))
         {
             if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
-            {
-                print("enemy hit");
+            {                
                 collision.GetComponent<Enemy>().TakeDamage();
             }
         }

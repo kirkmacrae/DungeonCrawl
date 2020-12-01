@@ -26,6 +26,9 @@ public class Enemy : MonoBehaviour
     void Die()
     {        
         print("enemy dead");
+        LootDrop ld = GetComponent<LootDrop>();
+        ld.DropLoot(transform);
+        //gameObject.SetActive(false);
         Destroy(gameObject);
     }
 }

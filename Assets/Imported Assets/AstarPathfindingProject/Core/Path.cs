@@ -748,8 +748,9 @@ namespace Pathfinding {
 			System.Text.StringBuilder text = pathHandler.DebugStringBuilder;
 			text.Length = 0;
 
-			DebugStringPrefix(logMode, text);
-			DebugStringSuffix(logMode, text);
+			//TODO: removed these calls because couldn't figure out how to stop it spamming console during testing
+			//DebugStringPrefix(logMode, text);
+			//DebugStringSuffix(logMode, text);
 
 			return text.ToString();
 		}
