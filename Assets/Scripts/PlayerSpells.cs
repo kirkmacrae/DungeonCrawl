@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class PlayerSpells : MonoBehaviour
 {
-    public PlayerMana playerMana;
+    //TODO mana costs for spells, handling different spells
+    public ParticleSystem FireCone;
+
+    private PlayerMana playerMana;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,11 +28,11 @@ public class PlayerSpells : MonoBehaviour
 
         if(playerMana.SpendMana(1))
         {
-            print("cast spell");
+            Instantiate(FireCone, transform.position, Quaternion.identity);            
         }
         else
         {
-            print("not enough mana");
+            //not enough mana
         }
     }
 }

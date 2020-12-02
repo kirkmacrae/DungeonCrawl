@@ -37,7 +37,7 @@ public class PlayerMana : MonoBehaviour
     {
         if (mana + currentMana > maxMana)
         {
-            mana = maxMana;
+            currentMana = maxMana;
         }
         else
         {

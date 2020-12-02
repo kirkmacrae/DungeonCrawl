@@ -38,7 +38,6 @@ public class PlayerHealth : MonoBehaviour
     {        
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            print("player hit");
             TakeDamage();
         }        
     }

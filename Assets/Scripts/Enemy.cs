@@ -13,8 +13,7 @@ public class Enemy : MonoBehaviour
     }
 
     public void TakeDamage (int damage=1)
-    {
-        print("take damage");
+    {        
         currentHealth -= damage;
 
         if(currentHealth <=0)
@@ -24,11 +23,9 @@ public class Enemy : MonoBehaviour
     }
 
     void Die()
-    {        
-        print("enemy dead");
+    { 
         LootDrop ld = GetComponent<LootDrop>();
-        ld.DropLoot(transform);
-        //gameObject.SetActive(false);
+        ld.DropLoot(transform);        
         Destroy(gameObject);
     }
 }
